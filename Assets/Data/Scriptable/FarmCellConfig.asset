@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce23ea25b1eaa142a7edb80aba6f590, type: 3}
+  m_Name: FarmCellConfig
+  m_EditorClassIdentifier: Assembly-CSharp::FarmCellConfig
+  BoostReductionSeconds: 2
+  UntilledColor: {r: 0.55, g: 0.4, b: 0.22, a: 1}
+  TilledColor: {r: 0.35, g: 0.22, b: 0.1, a: 1}
+  SeededColor: {r: 0.7, g: 0.65, b: 0.3, a: 1}
+  GrowingColor: {r: 0.4, g: 0.75, b: 0.3, a: 1}
+  GrownColor: {r: 0.1, g: 0.55, b: 0.1, a: 1}

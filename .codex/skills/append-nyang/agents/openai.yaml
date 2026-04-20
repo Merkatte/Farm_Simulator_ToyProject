@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "Append Nyang"
+  short_description: "Append 냥 to sentence endings."
+  default_prompt: "Use $append-nyang to rewrite my reply so every sentence ends with 냥."
