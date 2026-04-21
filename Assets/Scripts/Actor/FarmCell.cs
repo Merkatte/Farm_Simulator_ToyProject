@@ -46,12 +46,18 @@ public class FarmCell : MonoBehaviour, IFarmCell {
     // 칸을 경작해 Tilled 상태로 전이한다.
     public void Till() {
         if (!CanTill()) return;
+        Debug.Log("Tilled");
         SetState(FarmCellState.Tilled);
     }
 
     // 씨앗을 받아 심고 Seeded 상태로 전이한다. 성장 타이밍은 seed가 결정한다.
     public void PlantSeed(SeedConfig seed) {
-        if (!CanPlant() || seed == null) return;
+        if (!CanPlant() || seed == null)
+        {
+            if (!seed) Debug.Log("seed is null");
+            return;
+        }
+        Debug.Log("Planted");
         _plantedSeed = seed;
         _growthTimer = seed.SeededToGrowingSeconds;
         SetState(FarmCellState.Seeded);
@@ -64,6 +70,16 @@ public class FarmCell : MonoBehaviour, IFarmCell {
         while (_growthTimer <= 0f && (_state == FarmCellState.Seeded || _state == FarmCellState.Growing)) {
             AdvanceGrowth();
         }
+    }
+
+    // 수확 가능 여부를 반환한다.
+    public bool CanHarvest() => _config && _state == FarmCellState.Grown;
+
+    // 수확물을 수집하고 칸을 Untilled로 리셋한다. 수확량을 반환한다.
+    public int Harvest() {
+        if (!CanHarvest()) return 0;
+        SetState(FarmCellState.Untilled);
+        return 1;
     }
 
     // 하이라이트 플래그를 갱신하고 시각을 다시 적용한다.

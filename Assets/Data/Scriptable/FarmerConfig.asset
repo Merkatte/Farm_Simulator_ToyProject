@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919673d3f55f9c041951c57ca534cf96, type: 3}
+  m_Name: FarmerConfig
+  m_EditorClassIdentifier: Assembly-CSharp::FarmerConfig
+  MoveSpeed: 2
+  InteractionRange: 0.1
+  TillingSeconds: 1
+  PlantingSeconds: 0.8
+  HarvestingSeconds: 1.2
+  BoostIntervalSeconds: 0.5
+  LoiterBaseWeight: 1
+  TillBaseWeight: 2.5
+  PlantBaseWeight: 2
+  BoostBaseWeight: 0.5
+  HarvestBaseWeight: 5
+  LoiterMinSeconds: 1
+  LoiterMaxSeconds: 3
+  RecencyPenaltyFactor: 0.3
+  RecencyHistorySize: 3
+  AvailableTargetMultiplier: 2

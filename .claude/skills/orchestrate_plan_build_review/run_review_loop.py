@@ -164,7 +164,8 @@ def save_review_log(
         if (project_root / "AI_CONTEXT_Claude").exists():
             break
 
-    log_path = project_root / "AI_CONTEXT_Claude" / "review_log.md"
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    log_path = project_root / "AI_CONTEXT_Claude" / f"review_log_{date_str}.md"
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
     status_label = "✅ 승인 (REVIEW_DONE)" if done else "🔄 개선 필요"
@@ -181,7 +182,7 @@ def save_review_log(
 
     # 파일이 없으면 헤더 포함해서 새로 생성
     if not log_path.exists():
-        header = "# Codex 리뷰 로그\n\nClaude가 Codex에게 보낸 프롬프트와 Codex의 응답을 회차별로 기록합니다.\n"
+        header = f"# Codex 리뷰 로그 — {date_str}\n\nClaude가 Codex에게 보낸 프롬프트와 Codex의 응답을 회차별로 기록합니다.\n"
         log_path.write_text(header + entry, encoding="utf-8")
     else:
         with open(log_path, "a", encoding="utf-8") as f:

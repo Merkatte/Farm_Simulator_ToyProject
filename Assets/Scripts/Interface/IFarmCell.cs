@@ -24,4 +24,10 @@ public interface IFarmCell
 
     // 선택 하이라이트 표시 여부를 설정한다.
     void SetHighlight(bool highlight);
+
+    // 수확 가능 여부를 반환한다. (Grown 상태일 때만 true)
+    bool CanHarvest();
+
+    // 수확물을 수집하고 칸을 Untilled로 리셋한다. 수확량을 반환한다. 실패 시 0 반환.
+    int Harvest();
 }

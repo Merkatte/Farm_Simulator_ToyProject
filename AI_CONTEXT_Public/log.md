@@ -4,6 +4,36 @@
 
 ---
 
+## 2026-04-20
+
+### Claude
+
+- `Assets/Scripts/Enum/FarmerState.cs` 신규 생성 — AI 농부 상태 열거형 (Idle ~ Depositing 8종)
+- `Assets/Scripts/Interface/IWarehouse.cs` 신규 생성 — 창고 공용 계약 (Position, Deposit)
+- `Assets/Scripts/Data/FarmerConfig.cs` 신규 생성 — AI 수치 ScriptableObject (이동속도, 작업시간, Boost간격)
+- `Assets/Scripts/Actor/FarmerAI.cs` 신규 생성 — 자율 농사 사이클 AI 상태머신 (경작→파종→부스트→수확→창고)
+- `Assets/Scripts/Manager/WarehouseManager.cs` 신규 생성 — 창고 Singleton (IWarehouse 구현, 수확량 누적)
+- `Assets/Scripts/Interface/IFarmCell.cs` 수정 — `CanHarvest()`, `Harvest()` 추가
+- `Assets/Scripts/Actor/FarmCell.cs` 수정 — `Harvest()` 구현 (Grown → Untilled 리셋, 수확량 1 반환)
+- `Assets/Scripts/Manager/FarmlandManager.cs` 수정 — `DefaultSeed`, `AllCells`, `TryGetCellPosition()` 추가. `_cells` 배열 null/길이 검증 강화
+- `.claude/skills/orchestrate_plan_build_review/run_review_loop.py` 수정 — 리뷰 로그를 단일 파일에서 날짜별 파일(`review_log_YYYY-MM-DD.md`)로 분리 저장
+
+---
+
+## 2026-04-21
+
+### Claude
+
+- `.gitignore` 수정 — `Assets/Plugins/Demigiant/` 추가
+- `Assets/Scripts/Data/FarmerConfig.cs` 수정 — `WorkDurationSeconds` 제거 → `TillingSeconds`, `PlantingSeconds`, `HarvestingSeconds`로 분리. 작업 속도를 농부 단위로 설정 가능
+- `Assets/Scripts/Actor/FarmerAI.cs` 수정 — `TransitionTo()`에서 상태별 개별 작업 시간 참조
+- `Assets/Scripts/Enum/FarmerState.cs` 수정 — `Loitering` 상태 추가 (멍때리기 전용)
+- `Assets/Scripts/Data/FarmerConfig.cs` 수정 — Action Base Weights / Loitering / Recency Penalty / Context Multipliers 필드 추가. `OnValidate()` + 런타임 호출 가능한 `Normalize()` 추가
+- `Assets/Scripts/Actor/FarmerAI.cs` 수정 — `HandleIdle()` 결정론적 우선순위를 Weighted Utility AI로 전면 교체. `ActionCandidate` 내부 클래스, `BuildActionCandidates()`, `ComputeWeight()`, `GetRecencyPenalty()`, `GetEnvironmentMultiplier(stub)`, `RecordAction()`, `IsTargetValid()`, `HandleLoitering()` 추가
+- `Assets/Data/Scriptable/FarmerConfig.asset` 수정 — 신규 가중치/패널티 필드 기본값 반영
+
+---
+
 ## 2026-04-19
 
 ### Claude

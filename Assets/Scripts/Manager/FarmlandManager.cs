@@ -1,21 +1,34 @@
 // 2x2 농경지 칸 배열을 관리하는 Singleton Manager. 칸 선택 상태와 하이라이트를 제어한다.
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FarmlandManager : MonoBehaviour {
     public static FarmlandManager Instance { get; private set; }
 
     [SerializeField] private FarmCell[] _cells = new FarmCell[4];
+    [SerializeField] private SeedConfig _defaultSeed;
 
     private IFarmCell[] _farmCells;
     private int _selectedIndex = 0;
+
+    // AI가 참조하는 기본 씨앗을 반환한다.
+    public SeedConfig DefaultSeed => _defaultSeed;
+
+    // 모든 농경지 칸을 읽기 전용으로 반환한다.
+    public IReadOnlyList<IFarmCell> AllCells => _farmCells;
 
     // Singleton 중복 가드 및 IFarmCell 캐시 배열을 초기화한다.
     private void Awake() {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
 
+        if (_cells.Length != 4)
+            Debug.LogError($"[FarmlandManager] _cells 배열은 정확히 4개여야 합니다. 현재: {_cells.Length}", this);
+
         _farmCells = new IFarmCell[_cells.Length];
         for (int i = 0; i < _cells.Length; i++) {
+            if (_cells[i] == null)
+                Debug.LogError($"[FarmlandManager] _cells[{i}]가 null입니다. Inspector에서 연결해주세요.", this);
             _farmCells[i] = _cells[i];
         }
     }
@@ -43,5 +56,17 @@ public class FarmlandManager : MonoBehaviour {
     private IFarmCell SelectedCell() {
         if (_selectedIndex < 0 || _selectedIndex >= _farmCells.Length) return null;
         return _farmCells[_selectedIndex];
+    }
+
+    // 지정한 IFarmCell 칸의 월드 좌표를 position에 담아 반환한다. 존재하지 않으면 false.
+    public bool TryGetCellPosition(IFarmCell cell, out Vector3 position) {
+        for (int i = 0; i < _farmCells.Length; i++) {
+            if (_farmCells[i] == cell) {
+                position = _cells[i].transform.position;
+                return true;
+            }
+        }
+        position = Vector3.zero;
+        return false;
     }
 }
