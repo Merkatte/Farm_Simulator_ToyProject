@@ -4,6 +4,25 @@
 
 ---
 
+## 2026-04-22
+
+### Claude
+
+- `Assets/Scripts/Actor/FarmerBehaviors.cs` 신규 생성 — `FarmerAI`를 `partial class`로 분리. Handle*/On*Done/IsTargetValid/MoveTowards/FindBy* 이동
+- `Assets/Scripts/Actor/FarmerAI.cs` 수정 — 생명주기+AI 의사결정만 유지(182줄). `partial` 키워드 추가. Codex 1회차 지적 반영: HandleMoveToCell에서 IsTargetValid() 활용
+- `AI_CONTEXT_Public/Architecture.md` 수정 — FarmerAI 섹션 헤더 갱신, partial 분리 구조 및 새 행동 추가 절차 기술
+- `Assets/Scripts/Enum/FarmerState.cs` 수정 — `Boosting` → `HelpingGrow` 리네임
+- `Assets/Scripts/Interface/IFarmCell.cs` 수정 — 협력 작업 API로 전면 교체. Till/PlantSeed/Boost/Harvest 제거, WorkProgress/RegisterFarmer/ContributeWork/TryConsumeHarvest 추가
+- `Assets/Scripts/Actor/FarmCell.cs` 수정 — WorkProgress 기반 자동 전이, 다중 수확(5회→Untilled), 농부 등록 카운터, 효율 곡선 적용
+- `Assets/Scripts/Actor/FarmerAI.cs` 수정 — SafeUnregisterTarget 패턴, FindFirstWhere(CanXxx) 기반 타겟 탐색, TransitionTo Register/Unregister 통합
+- `Assets/Scripts/Actor/FarmerBehaviors.cs` 수정 — HandleWorking 통합, FindFirstWhere 헬퍼 추가, IsTargetValid Unity overloaded null 패턴 수정
+- `Assets/Scripts/Data/FarmCellConfig.cs` 수정 — MaxWork 5종, NaturalGrowthRate, AnimationCurve, MaxHarvestCount 추가, Normalize/OnValidate 추가
+- `Assets/Scripts/Data/SeedConfig.cs` 수정 — 타이밍 필드 제거, 정체성 데이터(DisplayName/HarvestYield/Icon)만 유지
+- `Assets/Scripts/Data/FarmerConfig.cs` 수정 — 작업 타이머 필드 제거, WorkContributionPerSecond 추가, BoostBaseWeight→HelpGrowBaseWeight 리네임
+- `Assets/Scripts/Manager/FarmlandManager.cs` 수정 — _defaultSeed/DefaultSeed 제거, TryGetCellPosition 파괴 오브젝트 방어 코드 추가
+
+---
+
 ## 2026-04-20
 
 ### Claude
@@ -31,6 +50,7 @@
 - `Assets/Scripts/Data/FarmerConfig.cs` 수정 — Action Base Weights / Loitering / Recency Penalty / Context Multipliers 필드 추가. `OnValidate()` + 런타임 호출 가능한 `Normalize()` 추가
 - `Assets/Scripts/Actor/FarmerAI.cs` 수정 — `HandleIdle()` 결정론적 우선순위를 Weighted Utility AI로 전면 교체. `ActionCandidate` 내부 클래스, `BuildActionCandidates()`, `ComputeWeight()`, `GetRecencyPenalty()`, `GetEnvironmentMultiplier(stub)`, `RecordAction()`, `IsTargetValid()`, `HandleLoitering()` 추가
 - `Assets/Data/Scriptable/FarmerConfig.asset` 수정 — 신규 가중치/패널티 필드 기본값 반영
+- `.gitignore` 수정 — `Demigiant.meta`, `DOTweenSettings.asset` 등 DOTween 관련 파일 전면 제외
 
 ---
 

@@ -12,19 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919673d3f55f9c041951c57ca534cf96, type: 3}
   m_Name: FarmerConfig
   m_EditorClassIdentifier: Assembly-CSharp::FarmerConfig
-  MoveSpeed: 2
+  MoveSpeed: 5
   InteractionRange: 0.1
-  TillingSeconds: 1
-  PlantingSeconds: 0.8
-  HarvestingSeconds: 1.2
-  BoostIntervalSeconds: 0.5
-  LoiterBaseWeight: 1
-  TillBaseWeight: 2.5
+  WorkContributionPerSecond: 1
+  LoiterBaseWeight: 0.3
+  TillBaseWeight: 3
   PlantBaseWeight: 2
-  BoostBaseWeight: 0.5
+  HelpGrowBaseWeight: 1
   HarvestBaseWeight: 5
   LoiterMinSeconds: 1
   LoiterMaxSeconds: 3
-  RecencyPenaltyFactor: 0.3
-  RecencyHistorySize: 3
+  RecencyPenaltyFactor: 1
+  RecencyHistorySize: 1
   AvailableTargetMultiplier: 2

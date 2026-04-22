@@ -6,13 +6,9 @@ public class FarmlandManager : MonoBehaviour {
     public static FarmlandManager Instance { get; private set; }
 
     [SerializeField] private FarmCell[] _cells = new FarmCell[4];
-    [SerializeField] private SeedConfig _defaultSeed;
 
     private IFarmCell[] _farmCells;
     private int _selectedIndex = 0;
-
-    // AI가 참조하는 기본 씨앗을 반환한다.
-    public SeedConfig DefaultSeed => _defaultSeed;
 
     // 모든 농경지 칸을 읽기 전용으로 반환한다.
     public IReadOnlyList<IFarmCell> AllCells => _farmCells;
@@ -58,10 +54,11 @@ public class FarmlandManager : MonoBehaviour {
         return _farmCells[_selectedIndex];
     }
 
-    // 지정한 IFarmCell 칸의 월드 좌표를 position에 담아 반환한다. 존재하지 않으면 false.
+    // 지정한 IFarmCell 칸의 월드 좌표를 position에 담아 반환한다. 존재하지 않거나 파괴된 경우 false.
     public bool TryGetCellPosition(IFarmCell cell, out Vector3 position) {
         for (int i = 0; i < _farmCells.Length; i++) {
             if (_farmCells[i] == cell) {
+                if (_cells[i] == null) { position = Vector3.zero; return false; }
                 position = _cells[i].transform.position;
                 return true;
             }

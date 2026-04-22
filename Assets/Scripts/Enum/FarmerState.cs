@@ -5,7 +5,7 @@ public enum FarmerState {
     MovingToCell,
     Tilling,
     Planting,
-    Boosting,
+    HelpingGrow,
     Harvesting,
     MovingToWarehouse,
     Depositing
